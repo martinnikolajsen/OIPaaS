@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<header>
+	<style>
+	.moveable{
+		position: absolute;
+		z-index: 9;
+		border: 1px dotted silver;
+		cursor: grab;
+	}
+	
+	.connector{
+		position: absolute;
+		top: -5px;
+		left:calc(50%);
+		right:0;		
+		width: 10px;
+		height: 10px;
+		background-color: orange;
+		border-radius: 5px;
+		cursor: pointer !important;
+	}
+	
+	.decision{
+		background-image: url("decision.svg");
+		background-size: contain;
+		background-repeat: no-repeat;
+		background-position: center center;
+		padding: 15px;
+	}
+	
+	.decision_input{
+		position: absolute;
+		top: -5px;
+		left:0;
+		right:0;
+		margin-left:auto;
+		margin-right:auto;
+		width: 10px;
+		height: 10px;
+		background-color: blue;
+		border-radius: 5px;
+	}
+	
+	.decision_true{
+		position: absolute;
+		right:5px;
+		margin-top:auto;
+		margin-bottom:auto;
+		width: 10px;
+		height: 10px;
+		background-color: green;
+		border-radius: 5px;
+	}	
+	
+	.decision_false{
+		position: absolute;
+		bottom: -5px;
+		left:0;
+		right:0;
+		margin-left:auto;
+		margin-right:auto;
+		width: 10px;
+		height: 10px;
+		background-color: red;
+		border-radius: 5px;
+	}		
+	</style>
+
+</header>
+<body>
+	<div id="contentArea" style="position: relative; width: 80%; margin: 0px auto; padding: 15px; height: 800px; border: 1px solid black;" class="">
+		<div id="drag1" class="moveable decision">
+			<p>This is our condition!</p>
+			<span class="decision_input"></span>
+			<div class="decision_true"></div>
+			<div class="decision_false"></div>
+			<div class="connector"></div>
+		</div>
+		
+		<div id="drag2" class="moveable decision">
+			drag2
+		</div>
+		<div id="abc" class="moveable">
+		drag ittt</div>
+	
+	</div>
+	<script>
+// Make the DIV element draggable:
+let contentArea = document.getElementById("contentArea");
+
+contentArea.onmousemove = contentMovement;
+
+let moveables = contentArea.querySelectorAll("div.moveable");
+moveables.forEach(moveable => {
+	dragElement(moveable);
+});
+
+//Connector selected
+let curConnector = null;
+
+// Make connectors clickable
+let connectors = contentArea.querySelectorAll(".connector");
+connectors.forEach(connector => {
+	clickElement(connector);
+});
+
+
+let lines = [];
+
+
+function clickElement(elmnt) {
+	if(curConnector == null){
+		curConnector = elmnt;
+	}
+	else if(elmnt == curConnector){
+		curConnector = null;
+	}
+	else{
+		//Make line between connectors
+		curConnector = null;
+	}
+}
+
+function contentMovement(e){
+	console.log("contentMovement");
+	e.clientX;
+	e.clientY;
+	if(curConnector != null){
+		//Calc length using pyt
+	}
+}
+
+function dragElement(elmnt) {
+console.log(elmnt);
+  if(elmnt == null){
+  console.log("returning");
+	return;
+  }
+  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+
+elmnt.onmousedown = dragMouseDown;
+elmnt.oncontextmenu = settings;
+
+  function dragMouseDown(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // get the mouse cursor position at startup:
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    document.onmouseup = closeDragElement;
+    // call a function whenever the cursor moves:
+    document.onmousemove = elementDrag;
+  }
+
+  function elementDrag(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // calculate the new cursor position:
+    pos1 = pos3 - e.clientX;
+    pos2 = pos4 - e.clientY;
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    // set the element's new position:
+	if((elmnt.offsetTop - pos2) > 0 && contentArea.clientHeight-elmnt.clientHeight-2 > (elmnt.offsetTop - pos2)) elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+    if((elmnt.offsetLeft - pos1) > 0 && contentArea.clientWidth-elmnt.clientWidth-2 > (elmnt.offsetLeft - pos1)) elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+	console.log("-----------------");
+    console.log(contentArea);
+	console.log(elmnt);
+	console.log(e);
+  }
+
+  function closeDragElement() {
+    // stop moving when mouse button is released:
+    document.onmouseup = null;
+    document.onmousemove = null;
+  }
+  
+  function settings(){
+	alert("settings!");
+	return false;
+  }
+}	
+	</script>	
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OIPaaS</title>
+    <link rel="stylesheet" href="stylesheet.css" type="text/css">
+    <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.css">
+</head>
+<body>
+	<div class="maincontainer">
+		<div class="topnav">
+			<a href="index.html"><i class="fa fa-home"></i></a>
+			<a class="active" href="workspaces.html">Workspaces</a>
+			<a href="help.html">Help</a>
+
+			<!--
+			<a href="users.html">Users</a>
+			<a href="groups.html">Groups</a>
+			<a href="connections.html">Connections</a>
+			<a href="logging.html">Logging</a>
+			-->
+			<a href="logout.html" id="logout">Logout</a>
+		</div>
+		<div style="display: grid;
+        grid-template-columns: 200px 30px 1fr;
+         height: 100%;">
+			<div id="menu">
+				<h2>MENU</h2>
+				<ul>
+					<li>Settings</li>
+					<li>Schedules</li>
+				</ul>
+				
+			</div>
+			<div id="menu-options">
+				<div class="menu-option"><i class="fa fa-cogs"></i></div>
+				<div class="menu-option"><i class="fa fa-cogs"></i></div>
+			</div>
+			<div class="content">
+				<div class="headline">
+					<h2>Folder name (Root)</h2>
+					<button class="rightbutton">
+						<i class="fa fa-folder-open" aria-hidden="true"></i>
+						Create
+					</button>
+				</div>
+				<div id="breadcrum">Breadcrumb</div>
+				<div id="items">
+					Here all items for the container is shown. A item is the top element a container is a subelement of a item and can be a container or workflow or other object.<br><br>
+					Using the Create button an item can be created.
+				</div>
+			</div>
+		</div>
+		<div class="footer">
+			OIPaaS - v1.0
+		</div>	
+	</div>
+</body>
+</html>
