@@ -1,7 +1,9 @@
 package OIPaaS.OIPaaS.Controllers;
 
 import OIPaaS.OIPaaS.Models.Resources.Resource;
+import OIPaaS.OIPaaS.Services.ResourceService;
 import io.swagger.v3.oas.annotations.Operation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,11 +12,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/resources")
-public class Resources {
+public class ResourceController {
+    ResourceService resourceService;
+    @Autowired
+    public ResourceController(ResourceService resourceService){
+        this.resourceService = resourceService;
+    }
     @GetMapping("resource/{id}")
     @Operation(summary = "Get the resource corresponding the the id given")
     public ResponseEntity<Resource> getResource(@PathVariable int id){
-        //We load and return the resource
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok(this.resourceService.getResource(id));
     }
 }
