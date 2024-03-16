@@ -1,23 +1,31 @@
-package OIPaaS.OIPaaS.Models.Resources;
+package oipaas.oipaas.models.resources;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Null;
 
-import org.springframework.data.annotation.Id;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-
-/**
- * All elements that are shown by the resource browser must implement the resource class.
-* */
 @Entity
-public class Resource<T> {
+public abstract class Resource {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
+
     private String extension;
-    private T data;
+
+    @ManyToOne
+    @JoinColumn(name = "parent_id")
+    @Null
+    private Resource parent;
+
+    public Resource(){
+
+    }
+
+    public Resource(String name, String extension, Resource parent){
+        this.name = name;
+        this.extension = extension;
+        this.parent = parent;
+    }
 
     /**
      * Friendly name for the resource
@@ -52,12 +60,14 @@ public class Resource<T> {
     }
 
     /**
-     * Encapsulation of data specific to the extension
+     * Every Resource has a parent, if the Parent is null the Resource is in the root Collection
      * */
-    public T getData(){
-        return this.data;
+    public Resource getParent() {
+        return this.parent;
     }
-    public void setData(T data){
-        this.data = data;
+
+    public void setParent(Resource parent) {
+        this.parent = parent;
     }
+
 }

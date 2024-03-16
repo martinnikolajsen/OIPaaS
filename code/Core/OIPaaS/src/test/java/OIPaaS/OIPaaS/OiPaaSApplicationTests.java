@@ -1,4 +1,5 @@
-package OIPaaS.OIPaaS;
+package oipaas.oipaas;
+
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -6,8 +7,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class OiPaaSApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+
 
 }

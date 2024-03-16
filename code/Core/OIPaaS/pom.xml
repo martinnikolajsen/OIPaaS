@@ -8,10 +8,10 @@
 		<version>3.2.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>OIPaaS</groupId>
-	<artifactId>OIPaaS</artifactId>
+	<groupId>oipaas</groupId>
+	<artifactId>oipaas</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>OIPaaS</name>
+	<name>oipaas</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>
@@ -26,18 +26,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>5.4.29.Final</version>
-        </dependency>
+		<!-- https://mvnrepository.com/artifact/jakarta.persistence/jakarta.persistence-api -->
 
                 <dependency>
                     <groupId>com.mysql</groupId>
@@ -54,12 +48,18 @@
 			<artifactId>spring-web</artifactId>
 			<version>6.1.4</version>
 		</dependency>
-
 		<dependency>
-			<groupId>OIPaaS</groupId>
-			<artifactId>OIPaaS</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<groupId>jakarta.persistence</groupId>
+			<artifactId>jakarta.persistence-api</artifactId>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-core -->
+		<dependency>
+			<groupId>org.hibernate.orm</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>6.4.4.Final</version>
+		</dependency>
+
+
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
@@ -75,10 +75,10 @@
 			<artifactId>spring-cloud-netflix-eureka-client</artifactId>
 			<version>3.0.2</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-jpa -->
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-jpa</artifactId>
-			<version>2.4.6</version>
 		</dependency>
 
 	</dependencies>

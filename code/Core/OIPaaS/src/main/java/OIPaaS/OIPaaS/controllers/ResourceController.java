@@ -1,8 +1,9 @@
-package OIPaaS.OIPaaS.Controllers;
+package oipaas.oipaas.controllers;
 
-import OIPaaS.OIPaaS.Models.Resources.Resource;
-import OIPaaS.OIPaaS.Services.ResourceService;
+
 import io.swagger.v3.oas.annotations.Operation;
+import oipaas.oipaas.models.resources.Resource;
+import oipaas.oipaas.services.ResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -20,7 +21,7 @@ public class ResourceController {
     }
     @GetMapping("resource/{id}")
     @Operation(summary = "Get the resource corresponding the the id given")
-    public ResponseEntity<Resource> getResource(@PathVariable int id){
-        return ResponseEntity.ok(this.resourceService.getResource(id));
+    public ResponseEntity<? extends Resource> getResource(@PathVariable int id){
+        return ResponseEntity.ok(this.resourceService.get(id));
     }
 }
