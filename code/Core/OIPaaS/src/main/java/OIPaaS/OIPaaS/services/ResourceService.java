@@ -1,29 +1,87 @@
 package oipaas.oipaas.services;
 
-import oipaas.oipaas.models.resources.Resource;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import oipaas.oipaas.models.resources.ResourceCollection;
+import oipaas.oipaas.models.resources.ResourceFlow;
+import oipaas.oipaas.models.resources.ResourceAbstract;
+import oipaas.oipaas.repositories.ResourceCollectionRepository;
+import oipaas.oipaas.repositories.ResourceFlowRepository;
+import oipaas.oipaas.repositories.ResourceRepositoryAbstract;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ResourceService<T extends Resource> {
-    JpaRepository<T, Integer> resourceReposity;
+public class ResourceService {
+    ResourceRepositoryAbstract resourceRepositoryAbstract;
+    ResourceCollectionRepository resourceCollectionRepository;
+    ResourceFlowRepository resourceFlowRepository;
     @Autowired
-    public ResourceService(JpaRepository<T, Integer> repository){
-        this.resourceReposity = repository;
-    }
-    public T get(int resourceId){
-        T ret = null;
-        Optional<T> optionalResource = this.resourceReposity.findById(resourceId);
-        if (optionalResource.isPresent()) {
-            ret = (T) optionalResource.get();
-        }
-        return null;
+    public ResourceService(ResourceRepositoryAbstract resourceRepositoryAbstract, ResourceCollectionRepository resourceCollectionRepository, ResourceFlowRepository resourceFlowRepository){
+        this.resourceRepositoryAbstract = resourceRepositoryAbstract;
+        this.resourceCollectionRepository = resourceCollectionRepository;
+        this.resourceFlowRepository = resourceFlowRepository;
     }
 
-    public T save(T resource){
-        return this.resourceReposity.save(resource);
+    public ResourceCollection getRoot(){
+        ResourceCollection ret = null;
+        List<ResourceAbstract> elements = this.resourceRepositoryAbstract.findByParentIsNull();
+        ret = new ResourceCollection("Root", null);
+
+        if(elements.size() > 0){
+            ret.getCollection().addAll(elements);
+        }
+        return ret;
+    }
+
+    public ResourceAbstract get(int resourceId){
+        if(resourceId == 0){
+            return getRoot();
+        }
+        ResourceAbstract ret = null;
+        Optional<ResourceAbstract> optionalResource = this.resourceRepositoryAbstract.findById(resourceId);
+        if (optionalResource.isPresent()) {
+            ret = optionalResource.get();
+        }
+        return ret;
+    }
+
+    public ResourceCollection save(ResourceCollection resource){
+        return this.resourceCollectionRepository.save(resource);
+    }
+
+    public ResourceFlow save(ResourceFlow resource){
+        return this.resourceFlowRepository.save(resource);
+    }
+
+    public ResourceAbstract save(ResourceAbstract resourceAbstract){
+        ResourceAbstract ret = null;
+        if(resourceAbstract instanceof ResourceCollection){
+            ret = save((ResourceCollection)resourceAbstract);
+        }
+        else if(resourceAbstract instanceof  ResourceFlow){
+            ret = save((ResourceFlow)resourceAbstract);
+        }
+        return ret;
+    }
+    public JsonNode convert(ResourceAbstract resource){
+        JsonNode ret = null;
+        ObjectMapper objectMapper = new ObjectMapper();
+        //Since the Object can be multiple forms, we need to get the right type
+        if(resource instanceof ResourceCollection){
+            ret = objectMapper.valueToTree(resource);
+        }
+        else if(resource instanceof  ResourceFlow){
+            ret = objectMapper.valueToTree(resource);
+        }
+        return ret;
+    }
+
+    public JsonNode geJsont(int resourceId){
+        ResourceAbstract resourceAbstract = get(resourceId);
+        return convert(resourceAbstract);
     }
 }

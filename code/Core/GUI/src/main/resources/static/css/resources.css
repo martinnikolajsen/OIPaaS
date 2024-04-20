@@ -1,0 +1,39 @@
+.CollectionResource{
+    cursor: pointer;
+    background-color: orange;
+    border: 1px solid black;
+    padding: 5px;
+    margin: 5px;
+}
+
+.FlowResource{
+    cursor: pointer;
+    background-color: pink;
+    border: 1px solid black;
+    padding: 5px;
+    margin: 5px;
+}
+
+.resouces{
+    display: flex;
+}
+
+h1{
+    margin-bottom: 0px;
+}
+
+.breadcrumb{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    color: gray;
+    margin-bottom: 2rem;
+}
+
+.breadcrumb > div{
+  cursor: pointer;
+}
+
+.breadcrumb > div:not(:first-child)::before {
+  content: ' > ';
+}
