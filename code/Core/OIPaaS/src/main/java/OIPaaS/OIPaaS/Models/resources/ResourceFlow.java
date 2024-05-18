@@ -35,9 +35,8 @@ public class ResourceFlow extends ResourceAbstract {
         this.settings = settings;
     }
 
-    //Settings settings;
-
     @Transient
+    @Override
     public String getResourceType(){
         DiscriminatorValue discriminatorValue = this.getClass().getAnnotation(DiscriminatorValue.class);
         return (discriminatorValue != null) ? discriminatorValue.value() : null;

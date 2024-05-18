@@ -1,10 +1,10 @@
-package OIPaaS.GUI;
+package oipaas.gui.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class Controllers {
+public class GUIController {
     @GetMapping({"/"})
     public String getHtmlPage() {
         return "index.html";

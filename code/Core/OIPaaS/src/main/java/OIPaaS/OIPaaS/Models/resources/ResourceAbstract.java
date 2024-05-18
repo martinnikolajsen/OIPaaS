@@ -3,10 +3,8 @@ package oipaas.oipaas.models.resources;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Null;
-import io.swagger.v3.oas.annotations.media.Schema;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -24,11 +22,11 @@ public abstract class ResourceAbstract {
     @JsonIdentityReference(alwaysAsId = true)
     private ResourceAbstract parent;
 
-    public ResourceAbstract(){
+    protected ResourceAbstract(){
 
     }
 
-    public ResourceAbstract(String name, ResourceAbstract parent){
+    protected ResourceAbstract(String name, ResourceAbstract parent){
         this.name = name;
         this.parent = parent;
     }

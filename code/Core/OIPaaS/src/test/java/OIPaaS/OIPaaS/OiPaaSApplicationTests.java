@@ -32,7 +32,7 @@ class OiPaaSApplicationTests {
     }
 
     @Test
-    public void CollectionResourceCreationRetrival(){
+    void CollectionResourceCreationRetrival(){
         resourceRepositoryAbstract.deleteAll();
 
         ResourceCollection resourceCollection = new ResourceCollection("folder", null);

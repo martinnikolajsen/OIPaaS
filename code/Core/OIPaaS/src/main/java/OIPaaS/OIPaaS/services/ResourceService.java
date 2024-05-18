@@ -31,7 +31,7 @@ public class ResourceService {
         List<ResourceAbstract> elements = this.resourceRepositoryAbstract.findByParentIsNull();
         ret = new ResourceCollection("Root", null);
 
-        if(elements.size() > 0){
+        if(!elements.isEmpty()){
             ret.getCollection().addAll(elements);
         }
         return ret;
@@ -59,24 +59,17 @@ public class ResourceService {
 
     public ResourceAbstract save(ResourceAbstract resourceAbstract){
         ResourceAbstract ret = null;
-        if(resourceAbstract instanceof ResourceCollection){
-            ret = save((ResourceCollection)resourceAbstract);
-        }
-        else if(resourceAbstract instanceof  ResourceFlow){
-            ret = save((ResourceFlow)resourceAbstract);
-        }
+        ret = save(resourceAbstract);
         return ret;
     }
     public JsonNode convert(ResourceAbstract resource){
         JsonNode ret = null;
         ObjectMapper objectMapper = new ObjectMapper();
         //Since the Object can be multiple forms, we need to get the right type
-        if(resource instanceof ResourceCollection){
+        if(resource instanceof ResourceCollection || resource instanceof  ResourceFlow){
             ret = objectMapper.valueToTree(resource);
         }
-        else if(resource instanceof  ResourceFlow){
-            ret = objectMapper.valueToTree(resource);
-        }
+
         return ret;
     }
 

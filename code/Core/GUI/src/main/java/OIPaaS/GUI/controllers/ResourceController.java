@@ -1,4 +1,4 @@
-package OIPaaS.GUI;
+package oipaas.gui.controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class ResourceController {
         try {
             return restTemplate.exchange(serviceUrl, HttpMethod.GET, null, JsonNode.class);
         } catch (HttpClientErrorException e) {
-            return ResponseEntity.status(e.getRawStatusCode()).body(e.getResponseBodyAs(JsonNode.class));
+            return ResponseEntity.status(e.getStatusCode().value()).body(e.getResponseBodyAs(JsonNode.class));
         }
     }
 

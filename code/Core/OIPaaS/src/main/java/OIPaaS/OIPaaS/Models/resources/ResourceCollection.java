@@ -17,7 +17,7 @@ public class ResourceCollection extends ResourceAbstract {
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonSerialize(contentAs = ResourceAbstract.class)
     @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS)
-    private List<ResourceAbstract> collection = new ArrayList();
+    private List<ResourceAbstract> collection = new ArrayList<>();
 
     public ResourceCollection(){
         super();
@@ -44,6 +44,7 @@ public class ResourceCollection extends ResourceAbstract {
     }
 
     @Transient
+    @Override
     public String getResourceType(){
         DiscriminatorValue discriminatorValue = this.getClass().getAnnotation(DiscriminatorValue.class);
         return (discriminatorValue != null) ? discriminatorValue.value() : null;

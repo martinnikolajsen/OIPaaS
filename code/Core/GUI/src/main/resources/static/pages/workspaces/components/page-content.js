@@ -22,6 +22,7 @@ Vue.component('page-content', {
         </div>
     </div>
   `,
+  inject: ['resourceIdLoaded', 'setResourceIdLoaded'],
   data() {
     return {
       loading: true,
@@ -61,12 +62,14 @@ Vue.component('page-content', {
         },
         handleItemClick(item) {
           // Check if the clicked item has the desired resourceType
+          this.setResourceIdLoaded( item.id);
           switch(item.resourceType){
             case 'CollectionResource':
                 this.loadData(item.id);
                 break;
             case 'FlowResource':
-                console.log("Open flow view!");
+                console.log("Open flow view!" + resourceIdLoaded);
+                //Open the flow page
                 break;
             default:
                 alert("Unknown resource type " + item.resourceType);
