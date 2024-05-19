@@ -7,14 +7,18 @@ new Vue({
         };
     },
     methods: {
-        setResourceIdLoaded(inp) {
-          this.resourceIdLoaded = inp;
+        getResourceIdLoaded() {
+            return this.resourceIdLoaded;
+        },
+        setResourceIdLoaded(value) {
+            this.resourceIdLoaded = value;
         }
-      },
+    },
     provide() {
         return {
-          resourceIdLoaded: this.resourceIdLoaded,
-          setResourceIdLoaded: this.setResourceIdLoaded
+          getResourceIdLoaded: this.getResourceIdLoaded,
+          setResourceIdLoaded: this.setResourceIdLoaded,
+          resourceIdLoaded: this.resourceIdLoaded
         };
     },
 });

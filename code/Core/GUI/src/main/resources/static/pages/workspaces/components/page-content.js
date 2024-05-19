@@ -22,7 +22,7 @@ Vue.component('page-content', {
         </div>
     </div>
   `,
-  inject: ['resourceIdLoaded', 'setResourceIdLoaded'],
+  inject: ['getResourceIdLoaded', 'setResourceIdLoaded'],
   data() {
     return {
       loading: true,
@@ -34,7 +34,8 @@ Vue.component('page-content', {
   },
      mounted() {
        // Make an HTTP GET request to fetch data from the REST service
-        this.loadData(0);
+        this.loadData(new URLSearchParams(window.location.search).get('resourceId') ?? 0);
+        console.log("resourceIdLoaded", this.resourceIdLoaded);
      },
      methods: {
         loadData(id) {
@@ -68,7 +69,8 @@ Vue.component('page-content', {
                 this.loadData(item.id);
                 break;
             case 'FlowResource':
-                console.log("Open flow view!" + resourceIdLoaded);
+                console.log("Open flow view!", this.getResourceIdLoaded(), "item id", item.id);
+                window.location.href = '/workspaces/FlowResource.html?resourceId=' + this.getResourceIdLoaded();
                 //Open the flow page
                 break;
             default:
