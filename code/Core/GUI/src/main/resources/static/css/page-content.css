@@ -1,0 +1,16 @@
+.page-content{
+    padding: 8px;
+}
+
+.content-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.content-top-options{
+    display: flex;
+    flex-direrection: row;
+    justify-content: end;
+}

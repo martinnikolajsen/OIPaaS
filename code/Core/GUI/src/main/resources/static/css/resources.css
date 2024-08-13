@@ -13,9 +13,27 @@
     padding: 5px;
     margin: 5px;
 }
+.CollectionResource::before {
+    content: '\f07b'; /* Unicode for folder icon in Font Awesome 6 */
+    font-family: 'Font Awesome 6 Free'; /* Font Awesome font family */
+    font-weight: 900; /* Necessary for Font Awesome Free Solid icons */
+    margin-right: 8px; /* Space between icon and text */
+}
 
-.resouces{
+.FlowResource::before {
+    content: '\f15b'; /* Unicode for file icon with lines in Font Awesome 6 */
+    font-family: 'Font Awesome 6 Free'; /* Font Awesome font family */
+    font-weight: 900; /* Necessary for Font Awesome Free Solid icons */
+    margin-right: 8px; /* Space between icon and text */
+}
+
+.resources{
     display: flex;
+    flex-direction: row;
+}
+
+.resources .resource{
+    width: 20%;
 }
 
 h1{
@@ -35,5 +53,7 @@ h1{
 }
 
 .breadcrumb > div:not(:first-child)::before {
-  content: ' > ';
+  padding-left: 2px;
+  content: '\\';
+  color: black;
 }

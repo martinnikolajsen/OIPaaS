@@ -1,10 +1,8 @@
-Vue.component('page-content', {
+const { defineComponent } = Vue;//from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
+
+export default defineComponent({
+  name: 'PageContent',
   template: `
-    <div class='page-content'>{{content}}</div>
-  `,
-  data() {
-    return {
-      content: 'This is the welcome page!'
-    };
-  }
+    This is the welcome page!
+  `
 });

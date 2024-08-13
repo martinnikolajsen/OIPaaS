@@ -14,10 +14,7 @@ import oipaas.oipaas.services.ResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
@@ -47,5 +44,44 @@ public class ResourceController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Resource "+resourceId+" not found");
         }
         return ResponseEntity.ok(resource);
+    }
+
+    @PostMapping("/add")
+    @Operation(summary = "Create a new Resource")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Resource created",
+                    content = {
+                            @Content(schema = @Schema(implementation = ResourceFlow.class)),
+                            @Content(schema = @Schema(implementation = ResourceCollection.class))
+                    }),
+            @ApiResponse(responseCode = "404", description = "Resource not found")
+    })
+    public ResponseEntity<ResourceAbstract> createResource(@RequestParam(name = "resourceId") @Parameter(description = "ID of the folder", required = false,
+                                                                   schema = @Schema(type = "integer", format = "int32"))
+                                                           int resourceId,
+                                                           @RequestParam(name = "name") @Parameter(description = "Name of the resource", required = false,
+                                                                schema = @Schema(type = "string", format = "text"))
+                                                            String name,
+                                                           @RequestParam(name = "type") @Parameter(description = "Type of the resource", required = false,
+                                                                   schema = @Schema(type = "string", format = "text"))
+                                                            String type){
+        return ResponseEntity.ok(this.resourceService.save(resourceId, name, type));
+    }
+
+    @DeleteMapping("/remove")
+    @Operation(summary = "Create a new Resource")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Resource deleted",
+                    content = {
+                            @Content(schema = @Schema(implementation = ResourceFlow.class)),
+                            @Content(schema = @Schema(implementation = ResourceCollection.class))
+                    }),
+            @ApiResponse(responseCode = "404", description = "Resource not found")
+    })
+    public ResponseEntity<String> createResource(@RequestParam(name = "resourceId") @Parameter(description = "ID of the folder", required = false,
+            schema = @Schema(type = "integer", format = "int32"))
+                                                           int resourceId){
+        this.resourceService.delete(resourceId);
+        return ResponseEntity.ok("");
     }
 }
